@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Button({ text }) {
-  return <EditBtnFrom>{text}</EditBtnFrom>;
+export default function Button({ text, onClick }) {
+  return <EditBtnFrom onClick={onClick}>{text}</EditBtnFrom>;
 }
 
 const EditBtnFrom = styled.button`
