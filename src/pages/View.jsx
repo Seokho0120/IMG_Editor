@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import Draggable from "react-draggable";
+import styled from "styled-components";
+
 import ButtonTools from "./ButtonTools";
 import Board from "./Board";
-import styled from "styled-components";
+import Travel from "../assets/Travel.jpg";
 
 export default function View() {
   return (
