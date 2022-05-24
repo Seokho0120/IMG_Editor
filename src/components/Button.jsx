@@ -18,4 +18,8 @@ const EditBtnFrom = styled.button`
   color: #ff7900;
   background-color: #fff;
   font-weight: bold;
+  :hover {
+    background-color: #ff7900;
+    color: white;
+  }
 `;
