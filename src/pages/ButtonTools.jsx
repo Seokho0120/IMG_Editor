@@ -1,14 +1,14 @@
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components";
 import Button from "../components/Button";
 
 const BTN_NAME = ["이동", "회전", "사이즈변경", "Crop", "제출"];
 
-export default function ButtonTools({ rotateImg }) {
+export default function ButtonTools({ rotateImg, sizeChangeImg }) {
   const activeImg = (e) => {
     console.log(e.target.innerText);
     e.target.innerText === "회전" && rotateImg();
+    e.target.innerText === "사이즈변경" && sizeChangeImg();
   };
 
   return (

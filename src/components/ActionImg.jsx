@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Draggable from "react-draggable";
 import Travel from "../assets/Travel.jpg";
 
-export default function ActionImg({ rotate }) {
+export default function ActionImg({ rotate, size }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [Filter, setOpacity] = useState(false);
 
@@ -41,7 +41,7 @@ export default function ActionImg({ rotate }) {
           style={{ filter: Filter ? "grayscale(50%)" : "grayscale(0%)" }}
         >
           <ImgHandler>이미지 손잡이</ImgHandler>
-          <Img degSize={rotate} />
+          <Img rotate={rotate} size={size} />
         </ImgWrapper>
       </Draggable>
     </>
@@ -75,10 +75,12 @@ const Img = styled.img.attrs({
   position: relative;
   width: 30%;
   height: auto;
-  transform: ${(prop) => `rotate(${prop.degSize}deg)`};
+  transform: ${(prop) => `rotate(${prop.rotate}deg) scale(${prop.size})`};
+
   :hover {
     cursor: pointer;
   }
-  /* transform: rotate(45deg); */
-  /* filter: grayscale(100%); */
 `;
+
+/* filter: grayscale(100%); */
+// background-color: ${(props) => (props.danger ? '#e74c3c' : '2ecc71')};
