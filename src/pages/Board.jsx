@@ -3,8 +3,8 @@ import styled from "styled-components";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import ButtonTools from "./ButtonTools";
+import "react-image-crop/dist/ReactCrop.css";
 import ActionImg from "../components/ActionImg";
 
 export default function Board() {
