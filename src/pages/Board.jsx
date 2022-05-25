@@ -41,7 +41,6 @@ export default function Board() {
       disabled={cropBoolean}
       crop={crop}
       onChange={(newCrop) => setCrop(newCrop)}
-      // onDragEnd={DownloadImg}
     >
       <Wrapper>
         <TopGray>

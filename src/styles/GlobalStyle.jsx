@@ -15,7 +15,6 @@ html, body {
   height: 100vh;
   overflow: hidden;
   overflow: auto;
-  /* background-color:#efefef; */
 }
 
 a {

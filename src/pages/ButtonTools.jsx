@@ -18,7 +18,6 @@ export default function ButtonTools({
     e.target.innerText === "회전" && rotateImg();
     e.target.innerText === "사이즈변경" && sizeChangeImg();
     e.target.innerText === "Crop" && activeCrop();
-    // e.target.innerText === "Crop 하기" && cropImageNow();
     e.target.innerText === "제출" && DownloadImg();
   };
 
