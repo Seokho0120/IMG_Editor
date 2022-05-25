@@ -1,25 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Draggable from "react-draggable";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 
 import Travel from "../assets/Travel.jpg";
 
-export default function ActionImg({ rotate, size, setSubmit }) {
-  // const [crop, setCrop] = useState({ aspect: 16 / 9 });
+export default function ActionImg({ rotate, size, setSubmit, moveBoolean }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [Filter, setOpacity] = useState(false);
+
   const trackPos = (data) => {
     setPosition({ x: data.x, y: data.y });
-  };
-
-  const handleStart = () => {
-    setOpacity(true);
-  };
-
-  const handleEnd = () => {
-    setOpacity(false);
   };
 
   return (
@@ -28,10 +17,8 @@ export default function ActionImg({ rotate, size, setSubmit }) {
         x: {position.x.toFixed(0)} / y: {position.y.toFixed(0)}
       </ImgPosition>
       <Draggable
-        disabled={false} // true가 되면 드래그 안됨
+        disabled={moveBoolean} // true가 되면 드래그 안됨
         onDrag={(e, data) => trackPos(data)}
-        // onStart={handleStart}
-        // onStop={handleEnd}
       >
         <ImgWrapper>
           {/* <ImgHandler>이미지 손잡이</ImgHandler> */}
@@ -53,6 +40,19 @@ const ImgWrapper = styled.div`
   align-items: center;
 `;
 
+const Img = styled.img.attrs({
+  src: `${Travel}`,
+})`
+  position: relative;
+  display: flex;
+  width: 70%;
+  height: auto;
+  transform: ${(prop) => `rotate(${prop.rotate}deg) scale(${prop.size})`};
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const ImgHandler = styled.div`
   display: flex;
   justify-content: center;
@@ -60,20 +60,10 @@ const ImgHandler = styled.div`
   color: white;
   width: 10%;
   height: 10%;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const Img = styled.img.attrs({
-  src: `${Travel}`,
-})`
-  position: relative;
+  position: absolute;
   display: flex;
-  width: 50%;
-  height: auto;
-  transform: ${(prop) => `rotate(${prop.rotate}deg) scale(${prop.size})`};
-
+  flex-direction: column;
+  align-items: center;
   :hover {
     cursor: pointer;
   }

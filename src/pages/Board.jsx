@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ActionImg from "../components/ActionImg";
-import ButtonTools from "./ButtonTools";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
+import ButtonTools from "./ButtonTools";
+import ActionImg from "../components/ActionImg";
 
 export default function Board() {
+  const [crop, setCrop] = useState({ aspect: 16 / 9 });
+  const [moveBoolean, setMoveBoolean] = useState(true);
   const [rotate, setRotate] = useState(0);
   const [size, setSize] = useState(1);
+  const [cropBoolean, setCropBoolean] = useState(true);
   const [submit, setSubmit] = useState();
+
+  const activeMove = () => {
+    moveBoolean === true ? setMoveBoolean(false) : setMoveBoolean(true);
+  };
 
   const rotateImg = () => {
     rotate === 360 ? setRotate(0) : setRotate((prev) => prev + 45);
@@ -18,31 +27,58 @@ export default function Board() {
     size === 10 ? setSize(0) : setSize((prev) => prev * 1.2);
   };
 
-  const onDownloadBtn = () =>
+  const activeCrop = () => {
+    cropBoolean === true ? setCropBoolean(false) : setCropBoolean(true);
+  };
+
+  const DownloadImg = () =>
     domtoimage.toBlob(submit).then((blob) => {
       saveAs(blob, "Travel.jpg");
     });
 
   return (
-    <>
-      <TopGray>
-        <ButtonTools
-          rotateImg={rotateImg}
-          sizeChangeImg={sizeChangeImg}
-          onDownloadBtn={onDownloadBtn}
-        />
-      </TopGray>
-      <MidGray>
-        <Left />
-        <Mid>
-          <ActionImg rotate={rotate} size={size} setSubmit={setSubmit} />
-        </Mid>
-        <Right />
-      </MidGray>
-      <BottomGray />
-    </>
+    <ReactCrop
+      disabled={cropBoolean}
+      crop={crop}
+      onChange={(newCrop) => setCrop(newCrop)}
+      // onDragEnd={DownloadImg}
+    >
+      <Wrapper>
+        <TopGray>
+          <ButtonTools
+            rotateImg={rotateImg}
+            sizeChangeImg={sizeChangeImg}
+            DownloadImg={DownloadImg}
+            activeMove={activeMove}
+            activeCrop={activeCrop}
+          />
+        </TopGray>
+        <MidGray>
+          <Left />
+          <Mid>
+            <ActionImg
+              rotate={rotate}
+              size={size}
+              setSubmit={setSubmit}
+              moveBoolean={moveBoolean}
+            />
+          </Mid>
+          <Right />
+        </MidGray>
+        <BottomGray />
+      </Wrapper>
+    </ReactCrop>
   );
 }
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const TopGray = styled.div`
   width: 100%;
@@ -97,12 +133,3 @@ const BottomGray = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-// const BoardFrom = styled.div`
-//   margin-top: 30px;
-//   width: 800px;
-//   height: 400px;
-//   display: flex;
-//   background-color: #efefef;
-//   overflow: hidden;
-// `;
