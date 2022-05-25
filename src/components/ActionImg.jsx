@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Draggable from "react-draggable";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 import Travel from "../assets/Travel.jpg";
 
 export default function ActionImg({ rotate, size, setSubmit }) {
+  // const [crop, setCrop] = useState({ aspect: 16 / 9 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [Filter, setOpacity] = useState(false);
   const trackPos = (data) => {
@@ -27,14 +30,11 @@ export default function ActionImg({ rotate, size, setSubmit }) {
       <Draggable
         disabled={false} // true가 되면 드래그 안됨
         onDrag={(e, data) => trackPos(data)}
-
         // onStart={handleStart}
         // onStop={handleEnd}
       >
-        <ImgWrapper
-          style={{ filter: Filter ? "grayscale(50%)" : "grayscale(0%)" }}
-        >
-          <ImgHandler>이미지 손잡이</ImgHandler>
+        <ImgWrapper>
+          {/* <ImgHandler>이미지 손잡이</ImgHandler> */}
           <Img rotate={rotate} size={size} ref={setSubmit} />
         </ImgWrapper>
       </Draggable>
@@ -43,7 +43,7 @@ export default function ActionImg({ rotate, size, setSubmit }) {
 }
 
 const ImgPosition = styled.div`
-  margin-top: 30px;
+  margin: 30px;
 `;
 
 const ImgWrapper = styled.div`
@@ -52,8 +52,6 @@ const ImgWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-// 만약 ImgWrapper와 boardForm의 밖으로 나간다면 opacity가 바뀜
-// ImgWrapper ? ImgWrapper안에 있으면 true : ImgWrapper밖에 있으면 False
 
 const ImgHandler = styled.div`
   display: flex;
@@ -72,7 +70,7 @@ const Img = styled.img.attrs({
 })`
   position: relative;
   display: flex;
-  width: 30%;
+  width: 50%;
   height: auto;
   transform: ${(prop) => `rotate(${prop.rotate}deg) scale(${prop.size})`};
 
